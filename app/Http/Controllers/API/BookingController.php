@@ -4,18 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
-use App\Repositories\Eloquent\BookingRepository;
-use Illuminate\Http\Request;
+use App\Repositories\BookingRepositoryInterface;
 
 class BookingController extends Controller
 {
 
     /**
-     * @var BookingRepository
+     * @var BookingRepositoryInterface
      */
     private $bookingRepository;
 
-    public function __construct(BookingRepository $bookingRepository)
+    public function __construct(BookingRepositoryInterface $bookingRepository)
     {
 
         $this->bookingRepository = $bookingRepository;

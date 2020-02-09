@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HookahRequest;
 use App\Http\Resources\HookahResource;
 use App\Http\Resources\HookahsResource;
-use App\Repositories\Eloquent\HookahRepository;
+use App\Repositories\HookahRepositoryInterface;
 
 class HookahController extends Controller
 {
     /**
-     * @var HookahRepository
+     * @var HookahRepositoryInterface
      */
     private $hookahRepository;
 
-    public function __construct(HookahRepository $hookahRepository)
+    public function __construct(HookahRepositoryInterface $hookahRepository)
     {
         $this->hookahRepository = $hookahRepository;
     }
