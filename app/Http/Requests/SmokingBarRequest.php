@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class SmokingBarRequest extends FormRequest
 {
@@ -24,7 +26,11 @@ class SmokingBarRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'unique:smoking_bars|min:5|max:255'
+            'name' => 'required|unique:smoking_bars|min:5|max:255'
         ];
+    }
+
+    protected function failedValidation(Validator $validator) {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

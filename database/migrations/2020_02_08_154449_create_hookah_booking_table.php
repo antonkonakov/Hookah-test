@@ -16,7 +16,7 @@ class CreateHookahBookingTable extends Migration
         Schema::create('hookah_booking', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('hookah_id')->unsigned();
-            $table->foreign('hookah_id')->references('id')->on('hookahs');
+            $table->foreign('hookah_id')->references('id')->on('hookahs')->onDelete('cascade');
             $table->bigInteger('booking_id')->unsigned();
             $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->timestamps();

@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class HookahRequest extends FormRequest
+class BookingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,10 @@ class HookahRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:smoking_bars|min:5|max:255',
-            'tubes_count' => 'required|digits_between:1,10'
+            'name' => 'required|min:5|max:255',
+            'customers_count' => 'required|digits_between:1,20',
+            'booking_from' => 'required|date_format:Y-m-d H:i',
+            'smoking_bar_id' => 'required|exists:smoking_bars,id'
         ];
     }
 

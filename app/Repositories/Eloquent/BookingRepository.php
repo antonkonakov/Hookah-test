@@ -4,6 +4,7 @@
 namespace App\Repositories\Eloquent;
 
 
+use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use App\Models\Hookah;
 use App\Repositories\BookingRepositoryInterface;
@@ -16,12 +17,9 @@ class BookingRepository implements BookingRepositoryInterface
 
     }
 
-    public function delete($booking_id) {
-    }
-
-    public function save(Request $request) {
+    public function save(BookingRequest $request) {
         $booking_to['booking_to'] = (new Carbon($request->booking_from))->addMinutes(30);
-        request()->merge($booking_to);
+        $request->merge($booking_to);
         $target_hookahs = (new HookahRepository())->pickHookahsForBooking($request);
 
         if(!empty($target_hookahs)) {
@@ -36,9 +34,10 @@ class BookingRepository implements BookingRepositoryInterface
                     $hookah->Booking()->save($booking);
                 }
             }
-            return "succes";
+            return response("success", 204);
         }
-        return "no availible hookahs on this time";
+        return response("no available hookahs on this time", 204);
+
     }
 
     public function getCustomersList() {

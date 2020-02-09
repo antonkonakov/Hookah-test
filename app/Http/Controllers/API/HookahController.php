@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HookahRequest;
+use App\Http\Resources\HookahResource;
+use App\Http\Resources\HookahsResource;
 use App\Repositories\Eloquent\HookahRepository;
 
 class HookahController extends Controller
@@ -21,11 +23,12 @@ class HookahController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return HookahsResource
      */
     public function index($smoking_bar_id)
     {
-        return response()->json($this->hookahRepository->all($smoking_bar_id));
+        //return response()->json($this->hookahRepository->all($smoking_bar_id));
+        return new HookahsResource($this->hookahRepository->all($smoking_bar_id));
     }
 
     /**
@@ -43,11 +46,16 @@ class HookahController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return HookahResource
      */
     public function show($smoking_bar_id, $hookah_id)
     {
-        return response()->json($this->hookahRepository->get($smoking_bar_id, $hookah_id));
+        $hookah = $this->hookahRepository->get($smoking_bar_id, $hookah_id);
+
+        if(!isset($hookah)) {
+            return response()->json(['error' => 1],400);
+        }
+        return new HookahResource($hookah);
     }
 
     /**
@@ -70,6 +78,6 @@ class HookahController extends Controller
      */
     public function destroy($smoking_bar_id, $hookah_id)
     {
-        //
+        return response()->json($this->hookahRepository->delete($smoking_bar_id, $hookah_id));
     }
 }

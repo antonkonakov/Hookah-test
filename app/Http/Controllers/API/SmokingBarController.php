@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SmokingBarRequest;
+use App\Http\Resources\SmokingBarResource;
+use App\Http\Resources\SmokingBarsResource;
 use App\Repositories\SmokingBarRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -22,18 +24,18 @@ class SmokingBarController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return SmokingBarsResource
      */
     public function index()
     {
-        return response()->json($this->smokingBarRepository->all());
+//        return response()->json($this->smokingBarRepository->all());
+        return new SmokingBarsResource($this->smokingBarRepository->all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param SmokingBarRequest $request
+     * @return \Illuminate\Http\JsonResponse
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(SmokingBarRequest $request)
     {
@@ -44,11 +46,16 @@ class SmokingBarController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return SmokingBarResource
      */
     public function show($id)
     {
-        return response()->json($this->smokingBarRepository->get($id));
+        $smoking_bar = $this->smokingBarRepository->get($id);
+
+        if(!isset($smoking_bar)) {
+            return response()->json(['error' => 1],400);
+        }
+        return new SmokingBarResource($smoking_bar);
     }
 
     /**
