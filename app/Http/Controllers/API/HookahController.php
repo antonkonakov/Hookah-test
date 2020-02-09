@@ -27,14 +27,14 @@ class HookahController extends Controller
      */
     public function index($smoking_bar_id)
     {
-        //return response()->json($this->hookahRepository->all($smoking_bar_id));
         return new HookahsResource($this->hookahRepository->all($smoking_bar_id));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $smoking_bar_id
+     * @param HookahRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store($smoking_bar_id, HookahRequest $request)
@@ -45,7 +45,8 @@ class HookahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $smoking_bar_id
+     * @param $hookah_id
      * @return HookahResource
      */
     public function show($smoking_bar_id, $hookah_id)
@@ -61,8 +62,9 @@ class HookahController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param $smoking_bar_id
+     * @param $hookah_id
+     * @param HookahRequest $request
      * @return \Illuminate\Http\Response
      */
     public function update($smoking_bar_id, $hookah_id, HookahRequest $request)
