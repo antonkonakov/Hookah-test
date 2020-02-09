@@ -15,7 +15,6 @@ class Booking extends Model
 
     public function Hookah() {
 
-       // return $this->hasMany('App\Models\Hookah');
         return $this->belongsToMany('App\Models\Hookah', 'hookah_booking');
     }
 
