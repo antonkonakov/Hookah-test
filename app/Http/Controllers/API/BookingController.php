@@ -76,6 +76,10 @@ class BookingController extends Controller
     }
 
     public function getAvailibleHookahs() {
-        return response()->json($this->bookingRepository->save($request));
+        //return response()->json($this->bookingRepository->save($request));
+    }
+
+    public function getCustomersList () {
+        return response()->json($this->bookingRepository->getCustomersList());
     }
 }

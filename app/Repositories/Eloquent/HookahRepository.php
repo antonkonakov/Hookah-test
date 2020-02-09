@@ -39,7 +39,7 @@ class HookahRepository implements HookahRepositoryInterface
         $booking_from = $request->booking_from;
         $booking_to = $request->booking_to;
 
-        return Hookah::whereHas('booking', function($query) use ($booking_from, $booking_to) {
+        return Hookah::select('id', 'tubes_count')->whereHas('booking', function($query) use ($booking_from, $booking_to) {
             $query
                 ->whereBetween('bookings.booking_from', [$booking_from, $booking_to])
                 ->orWhere(function ($query) use ($booking_from, $booking_to) {
@@ -49,6 +49,30 @@ class HookahRepository implements HookahRepositoryInterface
 
         }, '=', 0)
             ->where('smoking_bar_id', $request->smoking_bar_id)
-            ->pluck('id')->toArray();
+            ->orderBy('tubes_count', 'DESC')
+            ->get()
+            ->pluck('tubes_count', 'id')->toArray();
+    }
+
+    public function pickHookahsForBooking($request) {
+        $available_hookah = $this->getAvailableForBooking($request);
+        $customers_count = $request->customers_count;
+        $prepared_hookahs = [];
+
+        if($customers_count > array_sum($available_hookah))  {
+            return [];
+        }
+
+        while (!empty($available_hookah) && $customers_count > 0) {
+            $prepared_hookahs[] = array_key_first($available_hookah);
+            if ($customers_count > max($available_hookah)) {
+                $customers_count -= reset($available_hookah);
+                unset($available_hookah[array_key_first($available_hookah)]);
+                continue;
+            }
+            break;
+        }
+
+        return $prepared_hookahs;
     }
 }

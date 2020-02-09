@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::namespace('API')->group(function () {
+    Route::get('booking/get-customers-list', 'BookingController@getCustomersList');
     Route::apiResources([
         'smoking-bar' => 'SmokingBarController',
         'smoking-bar.hookah' => 'HookahController',
