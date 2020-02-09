@@ -8,8 +8,6 @@ use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use App\Models\Hookah;
 use App\Repositories\BookingRepositoryInterface;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class BookingRepository implements BookingRepositoryInterface
 {
@@ -18,8 +16,6 @@ class BookingRepository implements BookingRepositoryInterface
     }
 
     public function save(BookingRequest $request) {
-        $booking_to['booking_to'] = (new Carbon($request->booking_from))->addMinutes(30);
-        $request->merge($booking_to);
         $target_hookahs = (new HookahRepository())->pickHookahsForBooking($request);
 
         if(!empty($target_hookahs)) {

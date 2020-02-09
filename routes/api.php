@@ -17,11 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('API')->group(function () {
+Route::namespace('API')->middleware('booking-time')->group(function () {
     Route::get('booking/get-customers-list', 'BookingController@getCustomersList');
+    Route::apiResources(['booking' => 'BookingController']);
+});
+Route::namespace('API')->group(function () {
     Route::apiResources([
         'smoking-bar' => 'SmokingBarController',
         'smoking-bar.hookah' => 'HookahController',
-        'booking' => 'BookingController',
     ]);
 });
