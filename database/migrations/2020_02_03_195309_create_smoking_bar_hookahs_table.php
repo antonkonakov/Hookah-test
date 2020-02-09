@@ -13,15 +13,15 @@ class CreateSmokingBarHookahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('smoking_bar_hookahs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('smoking_bar_id')->unsigned();
-            $table->foreign('smoking_bar_id')->references('id')->on('smoking_bars');
-            $table->bigInteger('hookah_id')->unsigned();
-            $table->foreign('hookah_id')->references('id')->on('hookahs');
-            $table->smallInteger('hookahs_count')->unsigned();
-            $table->timestamps();
-        });
+//        Schema::create('smoking_bar_hookahs', function (Blueprint $table) {
+//            $table->bigIncrements('id');
+//            $table->bigInteger('smoking_bar_id')->unsigned();
+//            $table->foreign('smoking_bar_id')->references('id')->on('smoking_bars');
+//            $table->bigInteger('hookah_id')->unsigned();
+//            $table->foreign('hookah_id')->references('id')->on('hookahs');
+//            $table->smallInteger('hookahs_count')->unsigned();
+//            $table->timestamps();
+//        });
     }
 
     /**

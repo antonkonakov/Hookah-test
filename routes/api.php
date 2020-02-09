@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('API')->group(function () {
     Route::apiResources([
         'smoking-bar' => 'SmokingBarController',
-        'hookah' => 'HookahController',
+        'smoking-bar.hookah' => 'HookahController',
         'booking' => 'BookingController',
     ]);
 });

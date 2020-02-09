@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HookahRequest;
 use App\Repositories\Eloquent\HookahRepository;
-use Illuminate\Http\Request;
 
 class HookahController extends Controller
 {
@@ -23,9 +23,9 @@ class HookahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($smoking_bar_id)
     {
-        //
+        return response()->json($this->hookahRepository->all($smoking_bar_id));
     }
 
     /**
@@ -34,9 +34,9 @@ class HookahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($smoking_bar_id, HookahRequest $request)
     {
-        //
+        return response()->json($this->hookahRepository->save($smoking_bar_id, $request));
     }
 
     /**
@@ -45,9 +45,9 @@ class HookahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($smoking_bar_id, $hookah_id)
     {
-        //
+        return response()->json($this->hookahRepository->get($smoking_bar_id, $hookah_id));
     }
 
     /**
@@ -57,9 +57,9 @@ class HookahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($smoking_bar_id, $hookah_id, HookahRequest $request)
     {
-        //
+        return response()->json($this->hookahRepository->update($smoking_bar_id, $hookah_id, $request));
     }
 
     /**
@@ -68,7 +68,7 @@ class HookahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($smoking_bar_id, $hookah_id)
     {
         //
     }

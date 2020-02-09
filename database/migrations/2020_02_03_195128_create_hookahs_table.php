@@ -15,6 +15,8 @@ class CreateHookahsTable extends Migration
     {
         Schema::create('hookahs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('smoking_bar_id')->unsigned()->index();;
+            $table->foreign('smoking_bar_id')->references('id')->on('smoking_bars')->onDelete('cascade');
             $table->string('name');
             $table->smallInteger('tubes_count')->unsigned();
             $table->timestamps();

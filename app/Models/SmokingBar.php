@@ -11,6 +11,8 @@ class SmokingBar extends Model
     ];
 
     public function Hookah() {
-        return $this->belongsToMany('App\Models\Hookah', 'smoking_bar_hookahs')->withPivot('hookahs_count');
+
+        return $this->hasMany('App\Models\Hookah');
+//        return $this->belongsToMany('App\Models\Hookah', 'smoking_bar_hookahs')->withPivot('hookahs_count');
     }
 }

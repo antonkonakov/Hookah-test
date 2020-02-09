@@ -3,10 +3,23 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Eloquent\BookingRepository;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+
+    /**
+     * @var BookingRepository
+     */
+    private $bookingRepository;
+
+    public function __construct(BookingRepository $bookingRepository)
+    {
+
+        $this->bookingRepository = $bookingRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,6 @@ class BookingController extends Controller
      */
     public function index()
     {
-        dd("heyhey");
         //
     }
 
@@ -26,7 +38,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->bookingRepository->save($request));
     }
 
     /**
@@ -61,5 +73,9 @@ class BookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAvailibleHookahs() {
+        return response()->json($this->bookingRepository->save($request));
     }
 }
