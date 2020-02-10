@@ -17,8 +17,4 @@ class Booking extends Model
 
         return $this->belongsToMany('App\Models\Hookah', 'hookah_booking');
     }
-
-    public function calculateTime($date, $offset) {
-        return Date("Y:M:s h:i:s", strtotime($offset, strtotime($date)));
-    }
 }
